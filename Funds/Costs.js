@@ -1,7 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from "react";
 import {Text, View, SafeAreaView, Button, FlatList, ScrollView, StyleSheet, TouchableOpacity, TouchableHighlight, TextInput} from 'react-native'
-import Moment from 'moment'
 import dayjs from 'dayjs'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
