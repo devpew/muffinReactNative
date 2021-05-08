@@ -1,7 +1,8 @@
+import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from "react";
 import {Text, View, SafeAreaView, Button, FlatList, ScrollView, StyleSheet, TouchableOpacity, TouchableHighlight, TextInput} from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Moment from 'moment'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Picker} from "@react-native-picker/picker";
 import { SwipeListView } from 'react-native-swipe-list-view';
 
@@ -168,7 +169,7 @@ export const Costs = props => {
             <SwipeListView
                 data={costsArray}
                 renderItem={renderItem}
-                keyExtractor={item => item.id}
+                keyExtractor={item => item.id.toString()}
                 onRefresh={getPosts}
                 refreshing={isLoading}
                 renderHiddenItem={renderHiddenItem}
