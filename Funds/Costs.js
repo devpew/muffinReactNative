@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Picker} from "@react-native-picker/picker";
 import { SwipeListView } from 'react-native-swipe-list-view';
 
-export const Costs = props => {
+export default function Costs() {
     const [costsArray, setCostsArray] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [token, setToken] = useState('')
@@ -26,7 +26,7 @@ export const Costs = props => {
         <View style={styles.costLineWrapper}>
             <Text style={styles.costAmount}>{item.amount}</Text>
             <Text style={styles.costSource}>{item.source}</Text>
-            <Text style={styles.coseCategory}>{item.category}</Text>
+            <Text style={styles.costCategory}>{item.category}</Text>
             <Text style={styles.costDate}>{dayjs(item.datetime).format('DD MMM YYYY')}</Text>
         </View>
         </TouchableHighlight>
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
         lineHeight: 50,
         flex: 2,
     },
-    coseCategory: {
+    costCategory: {
         height: 50,
         lineHeight: 50,
         flex: 4,

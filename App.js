@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {AuthContext} from "./context/context";
 
-import {Costs} from "./Funds/Costs";
+import Costs from "./Funds/Costs";
 import Earnings from "./Funds/Earnings";
 import Login from './Funds/Login'
 import Settings from "./Funds/Settings";
