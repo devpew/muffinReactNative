@@ -2,6 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from "react";
 import {Text, View, SafeAreaView, Button, FlatList, ScrollView, StyleSheet, TouchableOpacity, TouchableHighlight, TextInput} from 'react-native'
 import Moment from 'moment'
+import dayjs from 'dayjs'
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Picker} from "@react-native-picker/picker";
 import { SwipeListView } from 'react-native-swipe-list-view';
@@ -26,7 +28,7 @@ export const Costs = props => {
             <Text style={styles.costAmount}>{item.amount}</Text>
             <Text style={styles.costSource}>{item.source}</Text>
             <Text style={styles.coseCategory}>{item.category}</Text>
-            <Text style={styles.costDate}>{Moment(item.datetime).format('DD MMM YYYY')}</Text>
+            <Text style={styles.costDate}>{dayjs(item.datetime).format('DD MMM YYYY')}</Text>
         </View>
         </TouchableHighlight>
     )
@@ -111,7 +113,7 @@ export const Costs = props => {
                 'Token': token
             },
             body: JSON.stringify({
-                "datetime": Moment(Date.now()).format(),
+                "datetime": dayjs(Date.now()).format(),
                 "amount": Number(currentCost),
                 "source": currentSource,
                 "category": currentCategory
