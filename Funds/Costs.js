@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from "react";
-import {Text, View, SafeAreaView, Button, FlatList, ScrollView, StyleSheet, TouchableOpacity, TouchableHighlight, TextInput} from 'react-native'
+import {Text, View, SafeAreaView, Button, StyleSheet, TouchableOpacity, TouchableHighlight, TextInput} from 'react-native'
 import dayjs from 'dayjs'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -118,16 +118,17 @@ export default function Costs() {
                 "category": currentCategory
             })
         }
-
-        fetch('http://127.0.0.1:8000/costs', requestOptions).then((res) => {
-            return res.json();
-        }).then((res) => {
-            getPosts()
-            setCurrentCost('')
-            console.log("sendCosts OK")
-        }).catch(function (error) {
-            console.log('sendCosts POST ERROR: ', error)
-        })
+        if (currentCost !== '') {
+            fetch('http://127.0.0.1:8000/costs', requestOptions).then((res) => {
+                return res.json();
+            }).then((res) => {
+                getPosts()
+                setCurrentCost('')
+                console.log("sendCosts OK")
+            }).catch(function (error) {
+                console.log('sendCosts POST ERROR: ', error)
+            })
+        }
     }
 
     return (
