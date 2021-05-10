@@ -4,18 +4,17 @@ import {Text, View, SafeAreaView, Button, StyleSheet, TouchableOpacity, Touchabl
 import dayjs from 'dayjs'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Picker} from "@react-native-picker/picker";
+import { Picker } from "@react-native-picker/picker";
 import { SwipeListView } from 'react-native-swipe-list-view';
 
 export default function Costs() {
-    const [costsArray, setCostsArray] = useState([])
+    const [dataArray, setDataArray] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [token, setToken] = useState('')
 
-    const [currentCost, setCurrentCost] = useState('')
+    const [currentAmount, setCurrentAmount] = useState('')
     const [currentCategory, setCurrentCategory] = useState('Еда')
     const [currentSource, setCurrentSource] = useState('TINK')
-
 
     const renderItem = ({item}) => (
         <TouchableHighlight
@@ -40,11 +39,11 @@ export default function Costs() {
 
     const deleteRow = (rowMap, rowKey) => {
         closeRow(rowMap, rowKey);
-        const newData = [...costsArray];
-        const prevIndex = costsArray.findIndex(item => item.id === rowKey);
+        const newData = [...dataArray];
+        const prevIndex = dataArray.findIndex(item => item.id === rowKey);
         newData.splice(prevIndex, 1);
-        setCostsArray(newData);
-        deleteCosts(rowKey)
+        setDataArray(newData);
+        deleteData(rowKey)
     };
 
     const renderHiddenItem = (data, rowMap) => (
@@ -68,11 +67,11 @@ export default function Costs() {
 
     useEffect(() => {
         if (token !== '') {
-            getPosts()
+            getData()
         }
     }, [token])
 
-    const getPosts = () => {
+    const getData = () => {
         setIsLoading(true)
         let URL = 'http://127.0.0.1:8000/costs'
         fetch(URL, {
@@ -80,11 +79,11 @@ export default function Costs() {
                 'Token': token
             }
         }).then(res => res.json()).then(res => {
-            setCostsArray(res)
+            setDataArray(res)
         }).finally(() => setIsLoading(false))
     }
 
-    function deleteCosts(id) {
+    function deleteData(id) {
         const requestOptions = {
             method: 'DELETE',
             headers: {
@@ -98,14 +97,14 @@ export default function Costs() {
         fetch('http://127.0.0.1:8000/costs/'+id, requestOptions).then((res) => {
             return res.json();
         }).then((res) => {
-            getPosts()
+            getData()
             console.log('DELETE COSTS OK')
         }).catch(function(error) {
             console.log('delete costs error: ', error)
         })
     }
 
-    function sendCosts() {
+    function sendData() {
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -113,20 +112,20 @@ export default function Costs() {
             },
             body: JSON.stringify({
                 "datetime": dayjs(Date.now()).format(),
-                "amount": Number(currentCost),
+                "amount": Number(currentAmount),
                 "source": currentSource,
                 "category": currentCategory
             })
         }
-        if (currentCost !== '') {
+        if (currentAmount !== '') {
             fetch('http://127.0.0.1:8000/costs', requestOptions).then((res) => {
                 return res.json();
             }).then((res) => {
-                getPosts()
-                setCurrentCost('')
-                console.log("sendCosts OK")
+                getData()
+                setCurrentAmount('')
+                console.log("sendData OK")
             }).catch(function (error) {
-                console.log('sendCosts POST ERROR: ', error)
+                console.log('sendData POST ERROR: ', error)
             })
         }
     }
@@ -136,9 +135,9 @@ export default function Costs() {
             <View style={styles.adderblock}>
                 <TextInput
                     style={styles.bigtextinput}
-                    onChangeText={text => setCurrentCost(text)}
+                    onChangeText={text => setCurrentAmount(text)}
                     keyboardType="numeric"
-                    defaultValue={currentCost}
+                    defaultValue={currentAmount}
                 />
                 <Picker
                     selectedValue={currentCategory}
@@ -164,23 +163,18 @@ export default function Costs() {
                     <Button
                         title={'Add'}
                         style={styles.input}
-                        onPress={sendCosts}
+                        onPress={sendData()}
                     />
                 </View>
             </View>
             <SwipeListView
-                data={costsArray}
+                data={dataArray}
                 renderItem={renderItem}
                 keyExtractor={item => item.id.toString()}
-                onRefresh={getPosts}
+                onRefresh={getData}
                 refreshing={isLoading}
                 renderHiddenItem={renderHiddenItem}
-                //leftOpenValue={75}
                 rightOpenValue={-75}
-                //previewRowKey={'0'}
-                //previewOpenValue={-40}
-                //previewOpenDelay={3000}
-                //onRowDidOpen={onRowDidOpen}
             />
         </SafeAreaView>
     )
