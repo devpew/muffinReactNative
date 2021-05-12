@@ -18,7 +18,7 @@ export default function Costs() {
 
     const renderItem = ({item}) => (
         <TouchableHighlight
-            onPress={() => console.log('You touched me')}
+            //onPress={() => console.log('You touched me')}
             style={styles.rowFront}
             underlayColor={'#AAA'}
         >
