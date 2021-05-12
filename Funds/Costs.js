@@ -98,7 +98,7 @@ export default function Costs() {
             return res.json();
         }).then((res) => {
             getData()
-            console.log('DELETE COSTS OK')
+            //console.log('DELETE COSTS OK')
         }).catch(function(error) {
             console.log('delete costs error: ', error)
         })
@@ -123,7 +123,7 @@ export default function Costs() {
             }).then((res) => {
                 getData()
                 setCurrentAmount('')
-                console.log("sendData OK")
+                //console.log("sendData OK")
             }).catch(function (error) {
                 console.log('sendData POST ERROR: ', error)
             })

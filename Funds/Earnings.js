@@ -98,7 +98,7 @@ export default function Earnings() {
             return res.json();
         }).then((res) => {
             getData()
-            console.log('DELETE earnings OK')
+            //console.log('DELETE earnings OK')
         }).catch(function(error) {
             console.log('delete earnings error: ', error)
         })
@@ -123,7 +123,7 @@ export default function Earnings() {
             }).then((res) => {
                 getData()
                 setCurrentAmount('')
-                console.log("sendData OK")
+                //console.log("sendData OK")
             }).catch(function (error) {
                 console.log('sendData POST ERROR: ', error)
             })
