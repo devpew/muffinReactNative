@@ -13,6 +13,7 @@ import Earnings from "./Funds/Earnings";
 import Costs from "./Funds/Costs";
 import Login from './Funds/Login'
 import Settings from "./Funds/Settings";
+import Stats from './Funds/Stats'
 
 const Drawer = createDrawerNavigator();
 
@@ -59,6 +60,7 @@ export default function App() {
             <Drawer.Navigator>
                 {token !== null ? (
                     <>
+                    <Drawer.Screen name="Stats" component={Stats} />
                     <Drawer.Screen name="Costs" component={Costs} />
                     <Drawer.Screen name="Earnings" component={Earnings} />
                     <Drawer.Screen name="Settings" component={Settings} />
