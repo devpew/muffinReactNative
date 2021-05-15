@@ -26,4 +26,6 @@ npm install @react-native-async-storage/async-storage
 npm install --save react-native-swipe-list-view
 
 npm install dayjs --save
+
+npm install react-native-chart-kit
 ```
