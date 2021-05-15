@@ -25,5 +25,5 @@ npm install @react-native-async-storage/async-storage
 
 npm install --save react-native-swipe-list-view
 
-npm install --save moment react-moment
+npm install dayjs --save
 ```
